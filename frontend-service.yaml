@@ -1,0 +1,29 @@
+
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: frontend-service
+  namespace: taskops
+  labels:
+    app: frontend
+
+spec:
+  # Expose React through a port on the Kubernetes node
+  type: NodePort
+
+  # Select React Pods with app: frontend
+  selector:
+    app: frontend
+
+  ports:
+    # Kubernetes Service port
+    - port: 80
+
+      # Nginx container port
+      targetPort: 80
+
+      # Node port (default allowed range: 30000-32767)
+      nodePort: 30080
+
+      protocol: TCP
